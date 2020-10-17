@@ -1,0 +1,5 @@
+iso/
+.vscode
+*.bin
+*.iso
+*.o
