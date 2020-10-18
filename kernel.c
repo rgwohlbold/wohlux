@@ -1,12 +1,9 @@
 #include "console.h"
+#include "gdt.h"
 
 void kmain() {
     console_init();
-    for (int i = 0; i < 100; i++) {
-        for (int j = 0; j < 10; j++) {
-            putchar('0' + j);
-            putchar('\n');
-        }
-    }
+    gdt_init();
+    printk("gdt initialized");
     while(1);
 }
