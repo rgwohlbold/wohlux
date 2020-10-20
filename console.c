@@ -37,6 +37,31 @@ void printk(char *c) {
 
 }
 
+void printkbin(void *v, uint32_t size) {
+    const char *hex = "0123456789ABCDEF";
+    uint8_t *b = (uint8_t *)v;
+    for (uint32_t i = 0; i < size; i++) {
+        putchar(hex[(b[i]>>4) & 0xF]);
+        putchar(hex[b[i] & 0xF]);
+    }
+}
+
+void printkb(uint8_t b) {
+    printkbin(&b, 1);
+}
+
+void printkw(uint16_t w) {
+    printkb((w >> 8)&0xFF);
+    printkb(w & 0xFF);
+}
+
+void printkl(uint32_t l) {
+    printkb((l >> 24) & 0xFF);
+    printkb((l >> 16) & 0xFF);
+    printkb((l >> 8) & 0xFF);
+    printkb(l & 0xFF);
+}
+
 void console_init(void) {
     for (int i = 0; i < 25*80; i++) {
         buf[i] = VGA(color, ' ');
