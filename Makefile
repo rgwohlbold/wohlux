@@ -1,4 +1,4 @@
-DEPS = boot.o kernel.o console.o gdt.o idt.o irq.o 
+DEPS = boot.o kernel.o console.o gdt.o idt.o irq.o mem.o
 CCFLAGS = -std=gnu99 -ffreestanding -Wall -Wextra -g
 ASFLAGS = -g
 LDFLAGS = -ffreestanding -nostdlib -lgcc -T linker.ld -g
