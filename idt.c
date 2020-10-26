@@ -34,7 +34,7 @@ extern void isr0x0D(void);
 extern void isr0x80(void);
 
 void pic_reset(void) {
-    unsigned char a1, a2;
+    uint8_t a1, a2;
     a1 = in8(PIC1_DATA);
     a2 = in8(PIC2_DATA);
 
@@ -68,11 +68,11 @@ void pit_init(uint32_t freq) {
 
 
 typedef struct {
-	unsigned short int offset_lowerbits;
-	unsigned short int selector;
-	unsigned char zero;
-	unsigned char type_attr;
-	unsigned short int offset_higherbits;
+	uint16_t offset_lowerbits;
+	uint16_t selector;
+	uint8_t zero;
+	uint8_t type_attr;
+	uint16_t offset_higherbits;
 } __attribute__((packed)) idt_entry;
 
 idt_entry idt[256];
