@@ -62,6 +62,17 @@ void printkl(uint32_t l) {
     printkb(l & 0xFF);
 }
 
+void printkq(uint64_t q) {
+    printkb((q >> 56) & 0xFF);
+    printkb((q >> 48) & 0xFF);
+    printkb((q >> 40) & 0xFF);
+    printkb((q >> 32) & 0xFF);
+    printkb((q >> 24) & 0xFF);
+    printkb((q >> 16) & 0xFF);
+    printkb((q >> 8) & 0xFF);
+    printkb(q & 0xFF);
+}
+
 void console_init(void) {
     for (int i = 0; i < 25*80; i++) {
         buf[i] = VGA(color, ' ');
