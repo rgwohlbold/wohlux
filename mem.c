@@ -84,7 +84,7 @@ void *kmalloc(uint32_t size) {
         if (hdr->size >= size && !hdr->used) {
             hdr->used = 1; 
             if (hdr->size > size + sizeof(mhdr)) {
-                mhdr *new = (mhdr *)hdr->data + size;
+                mhdr *new = (mhdr *)(hdr->data + size);
                 new->size = hdr->size - size - sizeof(mhdr);
                 new->data = (uint8_t *) (new+1);
                 new->used = 0;
