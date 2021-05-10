@@ -1,28 +1,28 @@
-DEPS = boot.o kernel.o console.o gdt.o idt.o irq.o mem.o
+OUT_DIR = build
+DEPS = ${OUT_DIR}/boot.o ${OUT_DIR}/kernel.o ${OUT_DIR}/console.o ${OUT_DIR}/gdt.o ${OUT_DIR}/idt.o ${OUT_DIR}/irq.o ${OUT_DIR}/mem.o
 CCFLAGS = -std=gnu99 -ffreestanding -Wall -Wextra -g
 ASFLAGS = -g
 LDFLAGS = -ffreestanding -nostdlib -lgcc -T linker.ld -g
 
-system.iso: kernel.bin
+${OUT_DIR}/system.iso: ${OUT_DIR}/kernel.bin
 	mkdir -p iso/boot/grub
-	cp kernel.bin iso/boot/
+	cp ${OUT_DIR}/kernel.bin iso/boot/
 	cp grub.cfg iso/boot/grub/
-	grub-mkrescue -o system.iso iso
+	grub-mkrescue -o ${OUT_DIR}/system.iso iso
 
-%.o: %.s
+${OUT_DIR}/%.o: %.s
 	i686-elf-as $< -o $@ $(ASFLAGS)
 
-%.o: %.c
+${OUT_DIR}/%.o: %.c
 	i686-elf-gcc -c $< -o $@ $(CCFLAGS)
 
-kernel.bin: $(DEPS)
+${OUT_DIR}/kernel.bin: $(DEPS)
 	i686-elf-gcc -o $@ $^ $(LDFLAGS)
 
-run: system.iso
-	qemu-system-i386 -s system.iso
+run: ${OUT_DIR}/system.iso
+	qemu-system-i386 -s $<
 
 clean:
-	rm *.o
-	rm -rf iso
-	rm kernel.bin
-	rm system.iso
+	rm -rf iso build
+
+$(shell mkdir -p $(OUT_DIR))
