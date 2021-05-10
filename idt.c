@@ -120,6 +120,8 @@ typedef struct interrupt_data {
     uint32_t eax;
     uint32_t number;
     uint32_t error;
+    uint32_t eip;
+    uint32_t flags;
 } __attribute__((packed)) interupt_data;
 
 void handle_interrupt(struct interrupt_data data) {
